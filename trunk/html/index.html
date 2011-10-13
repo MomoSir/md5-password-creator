@@ -1,7 +1,7 @@
 <!doctype>
 <!-- 
 MD5calc in HTML and Javascript
-version alpha 1
+version alpha 2
 
 written by @chenxiaoqino, 2011-10-11
 based on js BigNumber Lib and js MD5 Lib
@@ -9,6 +9,10 @@ based on js BigNumber Lib and js MD5 Lib
 <html>
 <head>
 <title>My MD5 Calc</title>
+<style>
+body {line-height:150%;}
+span {font-family:monospace;background:rgb(255,255,190);}
+</style>
 <script>
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
@@ -180,22 +184,44 @@ if(si>9)si-=7;
 ri=ri.multiply(16);
 ri=ri.add(si);
 }
-return ri;
+return ri.toString();
 }
 </script>
 <script>
+str_source=str_md5=str_decimal="nothing.                             ";
 function calc()
 {
-var str_source=document.getElementById("srcbox").value;
-var str_md5=md5(str_source);
-var str_decimal=hex2dec(str_md5);
+str_source=document.getElementById("srcbox").value;
+str_md5=md5(str_source);
+str_decimal=hex2dec(str_md5);
 
 var box=document.getElementById("resultbox");
 box.innerHTML="Source:"+'"'+str_source+'"';
 box.innerHTML+="<br />";
-box.innerHTML+="MD5:"+str_md5;
+box.innerHTML+="MD5: <span>"+str_md5+"</span>";
 box.innerHTML+="<br />";
-box.innerHTML+="Decimal:"+str_decimal;
+box.innerHTML+="Decimal: <span>"+str_decimal+"</span>";
+
+document.getElementById("cutbox").innerHTML="";
+}
+
+function cut()
+{
+var l=document.getElementById("cutselect").value;
+var cutdec=cutmd5="";
+for(i=0;i<l;i++)
+{
+cutdec+=str_decimal.charAt(i);
+cutmd5+=str_md5.charAt(i);
+}
+
+var box=document.getElementById("cutbox");
+box.innerHTML="前"+l+"位:";
+box.innerHTML+="<br />";
+box.innerHTML+="MD5: <span>"+cutmd5+"</span>";
+box.innerHTML+="<br />";
+box.innerHTML+="Decimal: <span>"+cutdec+"</span>";
+
 }
 </script>
 </head>
@@ -203,6 +229,21 @@ box.innerHTML+="Decimal:"+str_decimal;
 <input type=text id="srcbox" size=20 /><button onclick="javascript:calc();">MD5!</button>
 <br />
 <div id="resultbox">
+</div>
+<br />
+切出前
+<SELECT id="cutselect" onchange="cut();" >   
+<OPTION value=0 ></OPTION >
+<OPTION value=6 >6位</OPTION >
+<OPTION value=8 >8位</OPTION >
+<OPTION value=10 >10位</OPTION >
+<OPTION value=12 >12位</OPTION >
+<OPTION value=16 >16位</OPTION >
+<OPTION value=20 >20位</OPTION >
+</select >  
+<button onclick="cut();">切!</button>
+<br />
+<div id="cutbox">
 </div>
 </body>
 </html>
