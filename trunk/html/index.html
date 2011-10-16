@@ -66,19 +66,12 @@ var l=document.getElementById("cutselect").value;
 
 var box=document.getElementById("cutbox");
 box.innerHTML="前"+l.toString()+"位";
-if(l==0)return;
-
-var cutdec=cutmd5="";
-for(i=0;i<l;i++)
-{
-cutdec+=str_decimal.charAt(i);
-cutmd5+=str_md5.charAt(i);
-}
+if(!l)return;
 
 box.innerHTML+="<br />";
-box.innerHTML+='MD5: <input type=text onFocus=this.select() onMouseOver=this.focus() value="'+cutmd5+'" />';
+box.innerHTML+='MD5: <input type=text onFocus=this.select() onMouseOver=this.focus() value="'+str_md5.substr(0,l)+'" />';
 box.innerHTML+="<br />";
-box.innerHTML+='Decimal: <input type=text onFocus=this.select() onMouseOver=this.focus() value="'+cutdec+'" />';
+box.innerHTML+='Decimal: <input type=text onFocus=this.select() onMouseOver=this.focus() value="'+str_decimal.substr(0,l)+'" />';
 }
 </script>
 </head>
