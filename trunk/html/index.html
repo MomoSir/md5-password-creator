@@ -43,9 +43,8 @@ function hex2dec(str)
 var longint=new Array();
 for(i=0;i<40;i++)longint[i]=0;
 str=""+str;
-var l=str.length;
 
-for(i=0;i<l;i++)
+for(i=0,l=str.length;i<l;i++)
 {
 var si=str.charCodeAt(i);
 si-=48;
@@ -64,8 +63,8 @@ for(j=0;j<40;j++)
 }
 var result="";
 var top=39;
-while(longint[top]==0)
- top--;
+while(longint[--top]==0);
+
 while(top>=0)
  result+=String.fromCharCode(longint[top--]+48);
 return result;
