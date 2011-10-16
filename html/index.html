@@ -66,7 +66,7 @@ var l=document.getElementById("cutselect").value;
 
 var box=document.getElementById("cutbox");
 box.innerHTML="前"+l.toString()+"位";
-if(!l)return;
+if(l==0)return;
 
 box.innerHTML+="<br />";
 box.innerHTML+='MD5: <input type=text onFocus=this.select() onMouseOver=this.focus() value="'+str_md5.substr(0,l)+'" />';
