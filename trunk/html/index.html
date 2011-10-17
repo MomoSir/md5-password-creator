@@ -35,12 +35,45 @@ var hexcase=0;function md5(a){return rstr2hex(rstr_md5(str2rstr_utf8(a)))}functi
 </script>
 <script>
 /*
-hex2dec min version
 a simple Hex string to Decimal Big Integer String function
 Written by @chenxiaoqino
 Published under New BSD license
 */
-function hex2dec(a){var b=new Array;for(i=0;i<40;i++)b[i]=0;a=""+a;for(i=0,l=a.length;i<l;i++){var c=a.charCodeAt(i);c-=48,c>32&&(c-=32),c>9&&(c-=7);for(j=0;j<40;j++)b[j]*=16;b[0]+=c;for(j=0;j<40;j++)while(b[j]>=10)b[j]-=10,b[j+1]+=1}var d="",e=39;while(b[--e]==0);while(e>=0)d+=String.fromCharCode(b[e--]+48);return d}
+function hex2dec(str)
+{
+var longint=new Array();
+l=str.length;
+  dtop=Math.ceil(l*1.21);//log(16)/log(10)=1.21
+
+for(i=0;i<dtop;i++)longint[i]=0;
+str=""+str;
+
+for(i=0;i<l;i++)
+{
+si=str.charCodeAt(i);
+si-=48;
+if(si>32)si-=32;
+if(si>9)si-=7;
+
+for(j=0;j<dtop;j++)
+ longint[j]*=16;
+longint[0]+=si;
+for(j=0;j<dtop;j++)
+ while(longint[j]>=10)
+  {
+  longint[j]-=10;
+  longint[j+1]+=1;  
+  }
+}
+result="";
+
+while(longint[--dtop]==0);
+
+while(dtop>=0)
+ result+=String.fromCharCode(longint[dtop--]+48);
+if(result=="")result="0";
+return result;
+}
 </script>
 <script>
 str_source=str_md5=str_decimal="null";
