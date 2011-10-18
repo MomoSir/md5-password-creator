@@ -3,7 +3,7 @@
 MD5calc in HTML and Javascript
 version alpha 4
 
-Written by @chenxiaoqino, 2011-10-16
+Written by @chenxiaoqino, 2011-10-18
 Based on js MD5 Lib
 Published under New BSD license: http://www.opensource.org/licenses/bsd-license.php
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -76,7 +76,7 @@ box.innerHTML+='Decimal: <input type=text onFocus=this.select() onMouseOver=this
 </script>
 </head>
 <body>
-<input type=text id="srcbox" size=20 /><button onclick="javascript:calc(document.getElementById('srcbox').value);">MD5!</button>
+<input type=text id="srcbox1" size=20 /><input type=text id="srcbox2" size=10 /><button onclick="javascript:calc(document.getElementById('srcbox1').value+document.getElementById('srcbox2').value);">MD5!</button>
 <br />
 <div id="resultbox">
 </div>
