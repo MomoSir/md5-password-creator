@@ -45,9 +45,8 @@ function hex2dec(a){var b=new Array,c,d="";a=d+a,l=a.length;var e=Math.ceil(l*1.
 </script>
 <script>
 str_source=str_md5=str_decimal="null";
-function calc()
+function calc(str_source)
 {
-str_source=document.getElementById("srcbox").value;
 str_md5=md5(str_source);
 str_decimal=hex2dec(str_md5);
 
@@ -77,11 +76,11 @@ box.innerHTML+='Decimal: <input type=text onFocus=this.select() onMouseOver=this
 </script>
 </head>
 <body>
-<input type=text id="srcbox" size=20 /><button onclick="javascript:calc();">MD5!</button>
+<input type=text id="srcbox" size=20 /><button onclick="javascript:calc(document.getElementById('srcbox').value);">MD5!</button>
 <br />
 <div id="resultbox">
 </div>
-以MD5值为输入, 再算一次<button type="button" onclick="document.getElementById('srcbox').value=str_md5;calc();">&gt;</button>
+以MD5值为输入, 再算一次<button type="button" onclick="calc(str_md5);">&gt;</button>
 <br />
 切出前
 <select id="cutselect" onchange="cut();" >   
