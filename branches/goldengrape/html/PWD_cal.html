@@ -41,6 +41,156 @@ Written by @chenxiaoqino
 Published under New BSD license
 */
 function hex2dec(a){var b=new Array,c,d="";a=d+a,l=a.length;var e=Math.ceil(l*1.21);for(i=0;i<e;i++)b[i]=0;for(i=0;i<l;i++){c=a.charCodeAt(i),c-=48,c>32&&(c-=32),c>9&&(c-=7);for(j=0;j<e;j++)b[j]*=16;b[0]+=c;for(j=0;j<e;j++)while(b[j]>=10)b[j]-=10,b[j+1]+=1}while(b[--e]==0);while(e>=0)d+=String.fromCharCode(b[e--]+48);return d==""&&(d="0"),d}
+/**
+*
+*  Base64 encode / decode
+*  http://www.webtoolkit.info/javascript-base64.html
+*
+**/
+var Base64 = {
+ 
+	// private property
+ 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	// _keyStr  : "乾坤屯蒙需讼师比畜履泰否同大谦豫随蛊临观噬贲剥复妄颐过坎离咸恒遁壮晋夷家睽蹇解损益夬姤萃升困井革鼎雷艮渐归丰旅巽泽涣节孚小既未", 
+	// public method for encoding
+	encode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+		var i = 0;
+ 
+		input = Base64._utf8_encode(input);
+ 
+		while (i < input.length) {
+ 
+			chr1 = input.charCodeAt(i++);
+			chr2 = input.charCodeAt(i++);
+			chr3 = input.charCodeAt(i++);
+ 
+			enc1 = chr1 >> 2;
+			enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+			enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+			enc4 = chr3 & 63;
+ 
+			if (isNaN(chr2)) {
+				enc3 = enc4 = 64;
+			} else if (isNaN(chr3)) {
+				enc4 = 64;
+			}
+ 
+			output = output +
+			this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+			this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+ 
+		}
+ 
+		return output;
+	},
+ 
+	// public method for decoding
+	decode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3;
+		var enc1, enc2, enc3, enc4;
+		var i = 0;
+ 
+		input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+ 
+		while (i < input.length) {
+ 
+			enc1 = this._keyStr.indexOf(input.charAt(i++));
+			enc2 = this._keyStr.indexOf(input.charAt(i++));
+			enc3 = this._keyStr.indexOf(input.charAt(i++));
+			enc4 = this._keyStr.indexOf(input.charAt(i++));
+ 
+			chr1 = (enc1 << 2) | (enc2 >> 4);
+			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			chr3 = ((enc3 & 3) << 6) | enc4;
+ 
+			output = output + String.fromCharCode(chr1);
+ 
+			if (enc3 != 64) {
+				output = output + String.fromCharCode(chr2);
+			}
+			if (enc4 != 64) {
+				output = output + String.fromCharCode(chr3);
+			}
+ 
+		}
+ 
+		output = Base64._utf8_decode(output);
+ 
+		return output;
+ 
+	},
+ 
+	// private method for UTF-8 encoding
+	_utf8_encode : function (string) {
+		string = string.replace(/\r\n/g,"\n");
+		var utftext = "";
+ 
+		for (var n = 0; n < string.length; n++) {
+ 
+			var c = string.charCodeAt(n);
+ 
+			if (c < 128) {
+				utftext += String.fromCharCode(c);
+			}
+			else if((c > 127) && (c < 2048)) {
+				utftext += String.fromCharCode((c >> 6) | 192);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+			else {
+				utftext += String.fromCharCode((c >> 12) | 224);
+				utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+ 
+		}
+ 
+		return utftext;
+	},
+ 
+	// private method for UTF-8 decoding
+	_utf8_decode : function (utftext) {
+		var string = "";
+		var i = 0;
+		var c = c1 = c2 = 0;
+ 
+		while ( i < utftext.length ) {
+ 
+			c = utftext.charCodeAt(i);
+ 
+			if (c < 128) {
+				string += String.fromCharCode(c);
+				i++;
+			}
+			else if((c > 191) && (c < 224)) {
+				c2 = utftext.charCodeAt(i+1);
+				string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+				i += 2;
+			}
+			else {
+				c2 = utftext.charCodeAt(i+1);
+				c3 = utftext.charCodeAt(i+2);
+				string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+				i += 3;
+			}
+ 
+		}
+ 
+		return string;
+	}
+ 
+}
+function b64encode(input)
+{
+return Base64.encode(input);
+}
+function b64decode(input)
+{
+return Base64.decode(input);
+}
+
 </script>
 <script>
 function $(id) {return document.getElementById(id);}
@@ -63,12 +213,15 @@ function createPwd()
 			// also can use md5(salt), which will extend the lenght of rawString
 	var str_md5 = md5(rawString);
 	var str_decimal = hex2dec(str_md5);
+	var str_base64=b64encode(str_md5);
 	var length = parseInt($("cutselect").value) || str_decimal.length;
-
+	
 	var boxhex=$("hexresult");
 	boxhex.innerHTML=str_md5.substr(0,length);
 	var boxdec=$("decresult");
 	boxdec.innerHTML=str_decimal.substr(0,6);
+	var boxbase64=$("base64result");
+	boxbase64.innerHTML=str_base64.substr(0,length);
 	return false;
 }
 </script>
@@ -82,42 +235,47 @@ function createPwd()
 			输入网站名<input type="radio" id="none" name="web" value="none" checked ><label for="none"></label><input type="text" id="srcbox2"/>
 			<br>
 			或者从下面的列表中选取：<br>
+			/*
+			id, value, for use lowerCase
+			*/
 			<br>邮件：
-				<input type="radio" id="Gmail" name="web" value="Gmail"><label for="Gmail">Gmail</label>
-				<input type="radio" id="MSN" name="web" value="MSN"><label for="MSN">MSN</label>
-				<input type="radio" id="Yahoo" name="web" value="Yahoo"><label for="Yahoo">Yahoo</label>
+				<input type="radio" id="gmail" name="web" value="gmail"><label for="gmail">gmail</label>
+				<input type="radio" id="msn" name="web" value="msn"><label for="msn">msn</label>
+				<input type="radio" id="yahoo" name="web" value="yahoo"><label for="yahoo">yahoo</label>
 				<input type="radio" id="sina" name="web" value="sina"><label for="sina">sina</label>
 				<input type="radio" id="sohu" name="web" value="sohu"><label for="sohu">sohu</label>
 				<input type="radio" id="163" name="web" value="163"><label for="163">163</label>
-				<input type="radio" id="QQ" name="web" value="QQ"><label for="QQ">QQ</label>
+				<input type="radio" id="qq" name="web" value="qq"><label for="qq">qq</label>
 				<input type="radio" id="263" name="web" value="263"><label for="263">263</label>
 			<br>社交：
-				<input type="radio" id="baidu" name="web" value="baidu"><label for="baidu">baidu</label>
-				<input type="radio" id="人人" name="web" value="人人"><label for="人人">人人</label>
-				<input type="radio" id="开心" name="web" value="开心"><label for="开心">开心</label>
-				<input type="radio" id="天涯" name="web" value="天涯"><label for="天涯">天涯</label>
-				<input type="radio" id="猫扑" name="web" value="猫扑"><label for="猫扑">猫扑</label>
-				<input type="radio" id="QQ" name="web" value="QQ"><label for="QQ">QQ</label>
+				<input type="radio" id="twitter" name="web" value="twitter"><label for="twitter">twitter</label>
+				<input type="radio" id="facebook" name="web" value="facebook"><label for="facebook">facebook</label>
+				<input type="radio" id="baidu" name="web" value="baidu"><label for="baidu">百度</label>
+				<input type="radio" id="renren" name="web" value="renren"><label for="renren">人人</label>
+				<input type="radio" id="kaixin" name="web" value="kaixin"><label for="kaixin">开心</label>
+				<input type="radio" id="tianya" name="web" value="tianya"><label for="tianya">天涯</label>
+				<input type="radio" id="mop" name="web" value="mop"><label for="mop">猫扑</label>
+				<input type="radio" id="qq" name="web" value="qq"><label for="qq">qq</label>
 			<br>购物：
-				<input type="radio" id="淘宝" name="web" value="淘宝"><label for="淘宝">淘宝</label>
-				<input type="radio" id="支付宝" name="web" value="支付宝"><label for="支付宝">支付宝</label>
-				<input type="radio" id="京东" name="web" value="京东"><label for="京东">京东</label>
-				<input type="radio" id="新蛋" name="web" value="新蛋"><label for="新蛋">新蛋</label>
-				<input type="radio" id="当当" name="web" value="当当"><label for="当当">当当</label>
-				<input type="radio" id="卓越" name="web" value="卓越"><label for="卓越">卓越</label>
-				<input type="radio" id="凡客" name="web" value="凡客"><label for="凡客">凡客</label>
+				<input type="radio" id="taobao" name="web" value="taobao"><label for="taobao">淘宝</label>
+				<input type="radio" id="alipay" name="web" value="alipay"><label for="alipay">支付宝</label>
+				<input type="radio" id="360buy" name="web" value="360buy"><label for="360buy">京东</label>
+				<input type="radio" id="newegg" name="web" value="newegg"><label for="newegg">新蛋</label>
+				<input type="radio" id="dangdang" name="web" value="dangdang"><label for="dangdang">当当</label>
+				<input type="radio" id="amazon" name="web" value="amazon"><label for="amazon">卓越</label>
+				<input type="radio" id="vancl" name="web" value="vancl"><label for="vancl">凡客</label>
 			<br>银行：
-				<input type="radio" id="工商银行" name="web" value="工商银行"><label for="工商银行">工商银行</label>
-				<input type="radio" id="建设银行" name="web" value="建设银行"><label for="建设银行">建设银行</label>
-				<input type="radio" id="农业银行" name="web" value="农业银行"><label for="农业银行">农业银行</label>
-				<input type="radio" id="招商银行" name="web" value="招商银行"><label for="招商银行">招商银行</label>
-				<input type="radio" id="中国银行" name="web" value="中国银行"><label for="中国银行">中国银行</label>
-				<input type="radio" id="交通银行" name="web" value="交通银行"><label for="交通银行">交通银行</label>
+				<input type="radio" id="icbc" name="web" value="icbc"><label for="icbc">工商银行</label>
+				<input type="radio" id="ccb" name="web" value="ccb"><label for="ccb">建设银行</label>
+				<input type="radio" id="abchina" name="web" value="abchina"><label for="abchina">农业银行</label>
+				<input type="radio" id="cmbchina" name="web" value="cmbchina"><label for="cmbchina">招商银行</label>
+				<input type="radio" id="boc" name="web" value="boc"><label for="boc">中国银行</label>
+				<input type="radio" id="bankcomm" name="web" value="bankcomm"><label for="bankcomm">交通银行</label>
 			<br>手机：
-				<input type="radio" id="移动" name="web" value="移动"><label for="移动">移动</label>
-				<input type="radio" id="联通" name="web" value="联通"><label for="联通">联通</label>
-				<input type="radio" id="电信" name="web" value="电信"><label for="电信">电信</label>
-				<input type="radio" id="网通" name="web" value="网通"><label for="网通">网通</label>
+				<input type="radio" id="10086" name="web" value="10086"><label for="10086">移动</label>
+				<input type="radio" id="10010" name="web" value="10010"><label for="10010">联通</label>
+				<input type="radio" id="ct10000" name="web" value="ct10000"><label for="ct10000">电信</label>
+				<input type="radio" id="10010" name="web" value="10010"><label for="10010">网通</label>
 			<br>
 			<br>
 			密码版本   :
@@ -144,9 +302,12 @@ function createPwd()
 	</form>
 	字符密码：
 	<textarea id="hexresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea>
-	<br>
+	复杂字符密码：
+	<textarea id="base64result" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea>
 	数字密码：
 	<textarea id="decresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea>
+	<br>
+
 
 </body>
 </html>
