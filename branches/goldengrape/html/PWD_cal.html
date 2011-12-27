@@ -3,7 +3,7 @@
 MD5calc in HTML and Javascript
 version alpha 5
 
-Written by @chenxiaoqino @HJin_me, 2011-10-19
+Written by @chenxiaoqino @HJin_me @goldengrape, 2011-12-27
 Based on js MD5 Lib
 Published under New BSD license: http://www.opensource.org/licenses/bsd-license.php
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -46,34 +46,79 @@ function hex2dec(a){var b=new Array,c,d="";a=d+a,l=a.length;var e=Math.ceil(l*1.
 function $(id) {return document.getElementById(id);}
 function createPwd()
 {
-	var salt="";//add your own salt
-	var rawString = md5($("srcbox1").value || '') 
-			+ md5(salt)
-			+ md5($("srcbox2").value || '')
-			+ md5($("version").value || '');
-	
+	var salt="";//add your own 
+	/*
+	input web name by radio or text
+	*/
+	for(var i = 0; i < document.form.web.length; i++) {
+		if(document.form.web[i].checked && document.form.web[i].value != "none") {
+			$("srcbox2").value = document.form.web[i].value;
+		}
+	}
+	var rawString = ($("srcbox1").value || '') 
+			+ (salt)
+			+ ($("srcbox2").value || '')
+			+ ($("version").value || '');
+			// restore to main stream, subpwd=md5(rawString)
+			// also can use md5(salt), which will extend the lenght of rawString
 	var str_md5 = md5(rawString);
 	var str_decimal = hex2dec(str_md5);
 	var length = parseInt($("cutselect").value) || str_decimal.length;
-
-//	var box = $("resultbox");
-//	box.innerHTML = "Source:" + '"' + rawString + '"';
-//	box.innerHTML += "<br />";
 
 	var boxhex=$("hexresult");
 	boxhex.innerHTML=str_md5.substr(0,length);
 	var boxdec=$("decresult");
 	boxdec.innerHTML=str_decimal.substr(0,6);
+	return false;
 }
 </script>
 </head>
 <body>
-	<form action="#" onsubmit="return createPwd();">
+	<form action="#" onsubmit="return createPwd();" name="form">
 			输入主密码:
 			<input type="password" id="srcbox1"/>
 			<br>
-			输入网站名:
-			<input type="text" id="srcbox2"/>
+
+			输入网站名<input type="radio" id="none" name="web" value="none" checked ><label for="none"></label><input type="text" id="srcbox2"/>
+			<br>
+			或者从下面的列表中选取：<br>
+			<br>邮件：
+				<input type="radio" id="Gmail" name="web" value="Gmail"><label for="Gmail">Gmail</label>
+				<input type="radio" id="MSN" name="web" value="MSN"><label for="MSN">MSN</label>
+				<input type="radio" id="Yahoo" name="web" value="Yahoo"><label for="Yahoo">Yahoo</label>
+				<input type="radio" id="sina" name="web" value="sina"><label for="sina">sina</label>
+				<input type="radio" id="sohu" name="web" value="sohu"><label for="sohu">sohu</label>
+				<input type="radio" id="163" name="web" value="163"><label for="163">163</label>
+				<input type="radio" id="QQ" name="web" value="QQ"><label for="QQ">QQ</label>
+				<input type="radio" id="263" name="web" value="263"><label for="263">263</label>
+			<br>社交：
+				<input type="radio" id="baidu" name="web" value="baidu"><label for="baidu">baidu</label>
+				<input type="radio" id="人人" name="web" value="人人"><label for="人人">人人</label>
+				<input type="radio" id="开心" name="web" value="开心"><label for="开心">开心</label>
+				<input type="radio" id="天涯" name="web" value="天涯"><label for="天涯">天涯</label>
+				<input type="radio" id="猫扑" name="web" value="猫扑"><label for="猫扑">猫扑</label>
+				<input type="radio" id="QQ" name="web" value="QQ"><label for="QQ">QQ</label>
+			<br>购物：
+				<input type="radio" id="淘宝" name="web" value="淘宝"><label for="淘宝">淘宝</label>
+				<input type="radio" id="支付宝" name="web" value="支付宝"><label for="支付宝">支付宝</label>
+				<input type="radio" id="京东" name="web" value="京东"><label for="京东">京东</label>
+				<input type="radio" id="新蛋" name="web" value="新蛋"><label for="新蛋">新蛋</label>
+				<input type="radio" id="当当" name="web" value="当当"><label for="当当">当当</label>
+				<input type="radio" id="卓越" name="web" value="卓越"><label for="卓越">卓越</label>
+				<input type="radio" id="凡客" name="web" value="凡客"><label for="凡客">凡客</label>
+			<br>银行：
+				<input type="radio" id="工商银行" name="web" value="工商银行"><label for="工商银行">工商银行</label>
+				<input type="radio" id="建设银行" name="web" value="建设银行"><label for="建设银行">建设银行</label>
+				<input type="radio" id="农业银行" name="web" value="农业银行"><label for="农业银行">农业银行</label>
+				<input type="radio" id="招商银行" name="web" value="招商银行"><label for="招商银行">招商银行</label>
+				<input type="radio" id="中国银行" name="web" value="中国银行"><label for="中国银行">中国银行</label>
+				<input type="radio" id="交通银行" name="web" value="交通银行"><label for="交通银行">交通银行</label>
+			<br>手机：
+				<input type="radio" id="移动" name="web" value="移动"><label for="移动">移动</label>
+				<input type="radio" id="联通" name="web" value="联通"><label for="联通">联通</label>
+				<input type="radio" id="电信" name="web" value="电信"><label for="电信">电信</label>
+				<input type="radio" id="网通" name="web" value="网通"><label for="网通">网通</label>
+			<br>
 			<br>
 			密码版本   :
 			<select id="version" >
@@ -85,7 +130,7 @@ function createPwd()
 			<br>
 			密码长度   :
 			<select id="cutselect" onchange="cut();" >   
-				<option value="20" select >20位</option>
+				<option value="20" selected >20位</option>
 				<option value="32">32位</option>
 	    			<option value="16" >16位</option>
 	    			<option value="12" >12位</option>
@@ -105,3 +150,4 @@ function createPwd()
 
 </body>
 </html>
+
