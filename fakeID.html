@@ -210,7 +210,9 @@ function createPwd()
 	// build ID
 
 	var IDnumber=IDmaker(ID_decimal);
-
+	
+	// build email ID
+	var mailID=str_base64.toLowerCase().substr(20,8);
 
 	var boxhex=$("hexresult");
 	boxhex.innerHTML=str_md5.substr(0,length);
@@ -224,6 +226,8 @@ function createPwd()
 	boxgender.innerHTML=gender;
 	var boxIDnumber=$("IDresult")
 	boxIDnumber.innerHTML=IDnumber;
+	var boxmailID=$("mailIDresult");
+	boxmailID.innerHTML=mailID;
 return false;
 }
 </script>
@@ -312,6 +316,8 @@ return false;
 	<textarea id="genderresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
 	ID号：
 	<textarea id="IDresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
+	email名：
+	<textarea id="mailIDresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
 	<p>使用<a href="https://www.google.com/search?&amp;q=temp+email">临时邮箱</a></p>
 
 </body>
