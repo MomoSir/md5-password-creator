@@ -130,10 +130,12 @@ function IDmaker(ID_decimal)
 	
 	
 	var IDyear=ID_decimal.substr(0,20)%15+1980;
-	var IDmonth=ID_decimal.substr(0,21)%10+1;
-	var IDday=ID_decimal.substr(0,22)%15+10;
-	var IDdate=IDyear.toString()+"0"+IDmonth.toString()+IDday.toString();
-	var IDsec=ID_decimal.substr(0,23)%899+100;
+
+	var month=['01','02','03','04','05','06','07','08','09','10','11','12'];
+	var IDmonth=month[ID_decimal.substr(0,21)%12+1];
+	var IDday=ID_decimal.substr(0,22)%19+10;
+	var IDdate=IDyear.toString()+IDmonth.toString()+IDday.toString();
+	var IDsec=ID_decimal.substr(0,23)%(999-800)+800;
 	IDsec=Math.floor(IDsec/2)*2+1+ID_decimal.substr(0,10)%(2);
 	var IDpart=IDdate+IDsec;	
 	
@@ -187,7 +189,7 @@ function createPwd()
 	var str_md5 = md5(rawString);
 	var str_decimal = hex2dec(str_md5);
 	var str_base64=b64encode(str_md5);
-	var ID_decimal=hex2dec(md5(str_md5));
+	var ID_decimal=hex2dec(md5(str_md5+md5("")));
 	var length = parseInt($("cutselect").value) || str_decimal.length;
 
 	// build name
@@ -195,12 +197,12 @@ function createPwd()
 	var surName=surNameList.substr((ID_decimal.substr(0,10)) % (surNameList.length),1);
 	
 	// For more Chinese char http://www.douban.com/note/186053601/
-	//var myNameList="镧铈镨钕钷钐铕钆铽镝钬铒铥镱镥锕钍镤铀镎钚镅锔锫锎锿镄钔锘铹绒绸";
-	//var myNameList="纶纸绉缝纫绞绛绘绗绖绝绚绕络绔纤维缄缂缓缑缔缏编缆缕缅缌缒缃缐缈缗缇纱线绠继绢绥绦绨绤绡绣结缎纹绻绮绵缵绺绫绩绲纺绷绱绳绶绬缠缞缚缟缙缛缢缜缣缍绹缁缀绽综绾经纬组织";
+	//var middleNameList="镧铈镨钕钷钐铕钆铽镝钬铒镱镥锕钍镤铀镎钚镅锔锫锎锿镄钔锘铹";
+	//var middleNameList="绒绸纶绉缝纫绞绛绘绗绖绝绚绕络绔纤维缄缂缓缑缔缏编缆缕缅缌缒缃缐缈缗缇纱线绠继绢绥绦绨绤绡绣结缎纹绻绮绵缵绺绫绩绲纺绷绱绳绶绬缠缞缚缟缙缛缢缜缣缍绹缁缀绽综绾经纬组织";
 	var myNameList="玌玏玎玑玐玙玛玒玓玔玕玖玗玘玚玥珁玬玮玞玣玠玡玢玤玦玧珏玩玪玭环玝玜玟玸珐玾玴玵珃珋珀玶玿玲玳玷玹玻玽珂珄珅珇珈珉珊珌珍珎珏珑珆珱珰珒珚珡珤珜珨玼珔珓珕珖珗珘珟珙珛珝珞珠珢珣珥珦珧珩珪珫珯";
 	//var myNameList="雷霆霈霖霜雪霁霞雯雾霭露霾震";
 
-
+	var middleName=myNameList.substr((ID_decimal.substr(10,15))%(myNameList.length),1);
 	var myName=myNameList.substr((ID_decimal.substr(10,10))%(myNameList.length),1);
 
 	// build gender
@@ -221,7 +223,7 @@ function createPwd()
 	var boxbase64=$("base64result");
 	boxbase64.innerHTML=str_base64.substr(0,length);
 	var boxname=$("nameresult");
-	boxname.innerHTML=surName+myName;
+	boxname.innerHTML=surName+middleName+myName;
 	var boxgender=$("genderresult");
 	boxgender.innerHTML=gender;
 	var boxIDnumber=$("IDresult")
