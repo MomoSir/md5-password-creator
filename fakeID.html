@@ -148,7 +148,8 @@ ID checksum based on http://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6
 */
 
 function calcChecksum(rid){
-    var workArr = rid.split('').reverse();
+	var workArr = rid.split('').reverse();
+	var map = [0,1,2,3,4,5,6,7,8,9,'X'];
     function W(i){
         return Math.pow(2,i-1) % 11;
     }
@@ -159,7 +160,7 @@ function calcChecksum(rid){
         }
         return sum;
     }
-    return (12-(S() % 11)) % 11;
+   return map[(12-(S() % 11)) % 11];
 }
 
 
