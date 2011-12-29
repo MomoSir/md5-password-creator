@@ -226,6 +226,8 @@ function createPwd()
 	boxname.innerHTML=surName+middleName+myName;
 	var boxgender=$("genderresult");
 	boxgender.innerHTML=gender;
+	var boxbirth=$("birthresult");
+	boxbirth.innerHTML=IDnumber.substr(6,4)+"年"+IDnumber.substr(10,2)+"月"+IDnumber.substr(12,2)+"日";
 	var boxIDnumber=$("IDresult")
 	boxIDnumber.innerHTML=IDnumber;
 	var boxmailID=$("mailIDresult");
@@ -316,6 +318,8 @@ return false;
 	<textarea id="nameresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
 	性别：
 	<textarea id="genderresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
+	生日：
+	<textarea id="birthresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
 	ID号：
 	<textarea id="IDresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
 	email名：
