@@ -1,27 +1,13 @@
-<!doctype html>
-<!--
-MD5calc in HTML and Javascript
-version alpha 5
-
-Written by @chenxiaoqino @HJin_me @goldengrape, 2011-12-27
-Based on js MD5 Lib
-Published under New BSD license: http://www.opensource.org/licenses/bsd-license.php
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-*   Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-*   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="undefined">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>md5 password creator</title>
-<style>
-body {line-height:150%;}
-div {padding:10px;}
-span {background:rgb(255,255,190);}
-div#resultbox span {font-family:monospace;}
-#recreatebox {display:none;}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>MD5信息密码生成器</title>
+<style type="text/css">
+<!--
+.STYLE3 {font-size: 14px}
+.STYLE4 {font-size: 36px}
+-->
 </style>
 <script>
 /*
@@ -216,116 +202,308 @@ function createPwd()
 	// build email ID
 	var mailID=str_base64.toLowerCase().substr(20,8);
 
-	var boxhex=$("hexresult");
-	boxhex.innerHTML=str_md5.substr(0,length);
+//	var boxhex=$("hexresult");
+//	boxhex.innerHTML=str_md5.substr(0,length);
 	var boxdec=$("decresult");
-	boxdec.innerHTML=str_decimal.substr(0,6);
+	boxdec.value=str_decimal.substr(0,6);
 	var boxbase64=$("base64result");
-	boxbase64.innerHTML=str_base64.substr(0,length);
+	boxbase64.value=str_base64.substr(0,length);
 	var boxname=$("nameresult");
-	boxname.innerHTML=surName+middleName+myName;
+	boxname.value=surName+middleName+myName;
 	var boxgender=$("genderresult");
-	boxgender.innerHTML=gender;
+	boxgender.value=gender;
 	var boxbirth=$("birthresult");
-	boxbirth.innerHTML=IDnumber.substr(6,4)+"年"+IDnumber.substr(10,2)+"月"+IDnumber.substr(12,2)+"日";
+	boxbirth.value=IDnumber.substr(6,4)+"年"+IDnumber.substr(10,2)+"月"+IDnumber.substr(12,2)+"日";
 	var boxIDnumber=$("IDresult")
-	boxIDnumber.innerHTML=IDnumber;
+	boxIDnumber.value=IDnumber;
 	var boxmailID=$("mailIDresult");
-	boxmailID.innerHTML=mailID;
+	boxmailID.value=mailID;
 return false;
 }
 </script>
 </head>
-<body>
-	<form action="#" onsubmit="return createPwd();" name="form">
-			输入主密码:
-			<input type="password" id="srcbox1"/>
-			<br>
-
-			输入网站名<input type="radio" id="none" name="web" value="none" checked ><label for="none"></label><input type="text" id="srcbox2"/>
-			<br>
-			或者从下面的列表中选取：<br>
-
-			<br>邮件：
-				<input type="radio" id="gmail" name="web" value="gmail"><label for="gmail">gmail</label>
-				<input type="radio" id="msn" name="web" value="msn"><label for="msn">msn</label>
-				<input type="radio" id="yahoo" name="web" value="yahoo"><label for="yahoo">yahoo</label>
-				<input type="radio" id="sina" name="web" value="sina"><label for="sina">sina</label>
-				<input type="radio" id="sohu" name="web" value="sohu"><label for="sohu">sohu</label>
-				<input type="radio" id="163" name="web" value="163"><label for="163">163</label>
-				<input type="radio" id="qq" name="web" value="qq"><label for="qq">qq</label>
-				<input type="radio" id="263" name="web" value="263"><label for="263">263</label>
-			<br>社交：
-				<input type="radio" id="twitter" name="web" value="twitter"><label for="twitter">twitter</label>
-				<input type="radio" id="facebook" name="web" value="facebook"><label for="facebook">facebook</label>
-				<input type="radio" id="baidu" name="web" value="baidu"><label for="baidu">百度</label>
-				<input type="radio" id="renren" name="web" value="renren"><label for="renren">人人</label>
-				<input type="radio" id="kaixin" name="web" value="kaixin"><label for="kaixin">开心</label>
-				<input type="radio" id="tianya" name="web" value="tianya"><label for="tianya">天涯</label>
-				<input type="radio" id="mop" name="web" value="mop"><label for="mop">猫扑</label>
-				<input type="radio" id="qq" name="web" value="qq"><label for="qq">qq</label>
-			<br>购物：
-				<input type="radio" id="taobao" name="web" value="taobao"><label for="taobao">淘宝</label>
-				<input type="radio" id="alipay" name="web" value="alipay"><label for="alipay">支付宝</label>
-				<input type="radio" id="360buy" name="web" value="360buy"><label for="360buy">京东</label>
-				<input type="radio" id="newegg" name="web" value="newegg"><label for="newegg">新蛋</label>
-				<input type="radio" id="dangdang" name="web" value="dangdang"><label for="dangdang">当当</label>
-				<input type="radio" id="amazon" name="web" value="amazon"><label for="amazon">卓越</label>
-				<input type="radio" id="vancl" name="web" value="vancl"><label for="vancl">凡客</label>
-			<br>银行：
-				<input type="radio" id="icbc" name="web" value="icbc"><label for="icbc">工商银行</label>
-				<input type="radio" id="ccb" name="web" value="ccb"><label for="ccb">建设银行</label>
-				<input type="radio" id="abchina" name="web" value="abchina"><label for="abchina">农业银行</label>
-				<input type="radio" id="cmbchina" name="web" value="cmbchina"><label for="cmbchina">招商银行</label>
-				<input type="radio" id="boc" name="web" value="boc"><label for="boc">中国银行</label>
-				<input type="radio" id="bankcomm" name="web" value="bankcomm"><label for="bankcomm">交通银行</label>
-			<br>手机：
-				<input type="radio" id="10086" name="web" value="10086"><label for="10086">移动</label>
-				<input type="radio" id="10010" name="web" value="10010"><label for="10010">联通</label>
-				<input type="radio" id="ct10000" name="web" value="ct10000"><label for="ct10000">电信</label>
-				<input type="radio" id="10010" name="web" value="10010"><label for="10010">网通</label>
-			<br>
-			<br>
-			密码版本   :
-			<select id="version" >
-				<option value="2012spring">2012春</option>
-				<option value="2012summer">2012夏</option>
-				<option value="2012autum">2012秋</option>
-				<option value="2012winter">2012冬</option>
-			</select>
-			<br>
-			密码长度   :
-			<select id="cutselect" onchange="cut();" >   
-				<option value="20" selected >20位</option>
-				<option value="32">32位</option>
-	    			<option value="16" >16位</option>
-	    			<option value="12" >12位</option>
-	    			<option value="10" >10位</option>
-	    			<option value="8" >8位</option>
-				<option value="6" >6位</option>
-			</select>
-			<br>
-	    		<input type="submit" id="submit" value="计算密码"/>
-	
-	</form>
-	字符密码：
-	<textarea id="hexresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	复杂字符密码：
-	<textarea id="base64result" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	数字密码：
-	<textarea id="decresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	姓名：
-	<textarea id="nameresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	性别：
-	<textarea id="genderresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	生日：
-	<textarea id="birthresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	ID号：
-	<textarea id="IDresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	email名：
-	<textarea id="mailIDresult" onFocus=this.select() onMouseOver=this.focus() rows="1" ></textarea><br>
-	<p>使用<a href="https://www.google.com/search?&amp;q=temp+email">临时邮箱</a></p>
-
+<body bgcolor="#FFFFFF">
+<form action="#" onsubmit="return createPwd();" name="form">
+  <table width="1024" border="0" cellpadding="0" cellspacing="0">
+    <!--DWLayoutTable-->
+    <tr>
+      <td width="158" height="16">&nbsp;</td>
+      <td width="405">&nbsp;</td>
+      <td width="423">&nbsp;</td>
+      <td width="38">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="40">&nbsp;</td>
+      <td colspan="2" rowspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td width="828" height="80" valign="top"><p>&nbsp;&nbsp;主密码:
+                <input name="password" type="password" id="srcbox1"/>
+                网站名
+                <input type="radio" id="none" name="web" value="none" checked >
+                <label for="none"></label>
+                <input name="text" type="text" id="srcbox2"/>
+                <input name="submit" type="submit" id="submit" value="生成个人信息并计算密码"/>
+              </p>
+              <hr>            </td>
+          </tr>
+        </table></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td rowspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td width="158" height="143" valign="top"><p align="center">Big Brother is Watching You</p>
+              <p align="center"><span class="STYLE4">&#8224;</span></p></td>
+          </tr>
+          <tr>
+            <td height="19">&nbsp;</td>
+          </tr>
+        </table></td>
+      <td height="40">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" rowspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td width="135" height="130" valign="top"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+                <!--DWLayoutTable-->
+                <tr>
+                  <td width="19" height="26">&nbsp;</td>
+                  <td width="103" valign="top"> 邮件</td>
+                </tr>
+                <tr>
+                  <td height="26">&nbsp;</td>
+                  <td valign="top">社交</td>
+                </tr>
+                <tr>
+                  <td height="26">&nbsp;</td>
+                  <td valign="top">购物</td>
+                </tr>
+                <tr>
+                  <td height="26">&nbsp;</td>
+                  <td valign="top">银行</td>
+                </tr>
+                <tr>
+                  <td height="26">&nbsp;</td>
+                  <td valign="top">手机</td>
+                </tr>
+              </table></td>
+            <td width="693" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <!--DWLayoutTable-->
+                <tr>
+                  <td width="85" height="26" valign="top"><input type="radio" id="gmail" name="web" value="gmail">
+                    <label for="gmail">gmail</label>
+                    <label for="263"></label></td>
+                  <td width="85" valign="top"><input type="radio" id="msn" name="web" value="msn">
+                    <label for="msn">msn</label></td>
+                  <td width="85" valign="top"><input type="radio" id="yahoo" name="web" value="yahoo">
+                    <label for="yahoo">yahoo</label>
+                    <label for="label"></label></td>
+                  <td width="85" valign="top"><input type="radio" id="sina" name="web" value="sina">
+                    <label for="sina">sina</label></td>
+                  <td width="85" valign="top"><input type="radio" id="sohu" name="web" value="sohu">
+                    <label for="sohu">sohu</label></td>
+                  <td width="85" valign="top"><input type="radio" id="163" name="web" value="163">
+                    <label for="163">163</label></td>
+                  <td width="85" valign="top"><input type="radio" id="qq" name="web" value="qq">
+                    <label for="qq">qq</label></td>
+                  <td width="85" valign="top"><input type="radio" id="263" name="web" value="263">
+                    <label for="263">263</label></td>
+                  <td width="13">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="26" valign="top"><input type="radio" id="twitter" name="web" value="twitter">
+                    <label for="twitter">twitter</label></td>
+                  <td valign="top"><input type="radio" id="facebook" name="web" value="facebook">
+                    <label for="facebook"><span class="STYLE3">facebook</span></label></td>
+                  <td valign="top"><input type="radio" id="baidu" name="web" value="baidu">
+                    <label for="baidu">百度</label></td>
+                  <td valign="top"><input type="radio" id="renren" name="web" value="renren">
+                    <label for="renren">人人</label></td>
+                  <td valign="top"><input type="radio" id="kaixin" name="web" value="kaixin">
+                    <label for="kaixin">开心</label></td>
+                  <td valign="top"><input type="radio" id="tianya" name="web" value="tianya">
+                    <label for="tianya">天涯</label></td>
+                  <td valign="top"><input type="radio" id="mop" name="web" value="mop">
+                    <label for="mop">猫扑</label></td>
+                  <td valign="top"><input type="radio" id="radio" name="web" value="qq">
+                    <label for="radio">qq</label></td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="26" valign="top"><input type="radio" id="taobao" name="web" value="taobao">
+                    <label for="taobao">淘宝</label></td>
+                  <td valign="top"><input type="radio" id="alipay" name="web" value="alipay">
+                    <label for="alipay">支付宝</label></td>
+                  <td valign="top"><input type="radio" id="360buy" name="web" value="360buy">
+                    <label for="360buy">京东</label></td>
+                  <td valign="top"><input type="radio" id="newegg" name="web" value="newegg">
+                    <label for="newegg">新蛋</label></td>
+                  <td valign="top"><input type="radio" id="dangdang" name="web" value="dangdang">
+                    <label for="dangdang">当当</label></td>
+                  <td valign="top"><input type="radio" id="amazon" name="web" value="amazon">
+                    <label for="amazon">卓越</label></td>
+                  <td valign="top"><input type="radio" id="vancl" name="web" value="vancl">
+                    <label for="vancl">凡客</label></td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="26" valign="top"><input type="radio" id="icbc" name="web" value="icbc">
+                    <label for="icbc">工商</label></td>
+                  <td valign="top"><input type="radio" id="ccb" name="web" value="ccb">
+                    <label for="ccb">建设</label></td>
+                  <td valign="top"><input type="radio" id="abchina" name="web" value="abchina">
+                    <label for="abchina">农业</label></td>
+                  <td valign="top"><input type="radio" id="cmbchina" name="web" value="cmbchina">
+                    <label for="cmbchina">招商</label></td>
+                  <td valign="top"><input type="radio" id="boc" name="web" value="boc">
+                    <label for="boc">中国</label>
+                    <label for="radio2"></label></td>
+                  <td valign="top"><input type="radio" id="bankcomm" name="web" value="bankcomm">
+                    <label for="bankcomm">交通</label></td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="26" valign="top"><input type="radio" id="10086" name="web" value="10086">
+                    <label for="10086">移动</label></td>
+                  <td valign="top"><input type="radio" id="radio3" name="web" value="10010">
+                    <label for="radio3">联通</label></td>
+                  <td valign="top"><input type="radio" id="ct10000" name="web" value="ct10000">
+                    <label for="ct10000">电信</label></td>
+                  <td valign="top"><input type="radio" id="10010" name="web" value="10010">
+                    <label for="10010">网通</label></td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td height="26" colspan="2" valign="top"><hr></td>
+          </tr>
+        </table></td>
+      <td height="122">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="34">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="144">&nbsp;</td>
+      <td rowspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td width="18" height="30"></td>
+            <td width="376" valign="top">生成个人信息 </td>
+            <td width="11"></td>
+          </tr>
+          <tr>
+            <td height="122"></td>
+            <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <!--DWLayoutTable-->
+                <tr>
+                  <td width="116" height="30" valign="top">姓名</td>
+                  <td width="65" valign="top"><input name="textarea"  type="text" id="nameresult" onFocus="this.select()" onMouseOver="this.focus()" value="" size="6"></td>
+                  <td width="195" valign="top">性别
+                  <input name="textarea2" type="text" id="genderresult" onFocus="this.select()" onMouseOver="this.focus()" value="" size="1"></td>
+                </tr>
+                <tr>
+                  <td height="30" valign="top">生日</td>
+                  <td colspan="2" valign="top"><input name="textarea3" type="text" id="birthresult" onFocus="this.select()" onMouseOver="this.focus()" value=""></td>
+                </tr>
+                <tr>
+                  <td height="30" valign="top">ID</td>
+                  <td colspan="2" valign="top"><input name="textarea4" type="text" id="IDresult" onFocus="this.select()" onMouseOver="this.focus()" value=""></td>
+                </tr>
+                <tr>
+                  <td height="30" valign="top">email</td>
+                  <td colspan="2" valign="top"><input name="textarea5" type="text" id="mailIDresult" onFocus="this.select()" onMouseOver="this.focus()" value=""></td>
+                </tr>
+                <tr>
+                  <td height="2"></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <!--DWLayoutTable-->
+              </table></td>
+            <td></td>
+          </tr>
+        </table></td>
+      <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td height="30" colspan="3" valign="top"><div align="left">生成密码 </div></td>
+            <td colspan="2" valign="top"><div align="right">版本
+                <select name="select2" id="version" >
+                  <option value="2012spring">2012春</option>
+                  <option value="2012summer">2012夏</option>
+                  <option value="2012autum">2012秋</option>
+                  <option value="2012winter">2012冬</option>
+                </select>
+              </div></td>
+          </tr>
+          <tr>
+            <td width="14" height="30">&nbsp;</td>
+            <td width="84" valign="top">字符密码</td>
+            <td colspan="2" valign="top"><input name="textarea6" type="text" id="base64result" onFocus="this.select()" onMouseOver="this.focus()" value="" size="32" maxlength="32"></td>
+            <td width="60" align="right" valign="top"><select name="select" id="cutselect" onChange="cut();" >
+                <option value="20" selected >20位</option>
+                <option value="32">32位</option>
+                <option value="16" >16位</option>
+                <option value="12" >12位</option>
+                <option value="10" >10位</option>
+                <option value="8" >8位</option>
+                <option value="6" >6位</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="19">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td width="137">&nbsp;</td>
+            <td width="127">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30">&nbsp;</td>
+            <td valign="top">数字密码</td>
+            <td colspan="2" valign="top"><input name="textarea7" type="text" id="decresult" onFocus="this.select()" onMouseOver="this.focus()" value="" size="32" maxlength="32"></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="34">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="13">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="33">&nbsp;</td>
+      <td colspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <!--DWLayoutTable-->
+          <tr>
+            <td width="828" height="33" valign="top"><hr>
+              <p><a href="http://md5-password-creator.googlecode.com/">项目主页</a> | <a href="http://code.google.com/p/md5-password-creator/wiki/AboutApp">使用说明</a> </p></td>
+          </tr>
+        </table></td>
+      <td>&nbsp;</td>
+    </tr>
+    
+  </table>
+</form>
 </body>
 </html>
-
