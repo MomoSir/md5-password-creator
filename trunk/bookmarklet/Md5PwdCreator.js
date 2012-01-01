@@ -4,6 +4,7 @@ function md5(a){function b(a){return d(c(e(a)))}function c(a){return g(h(f(a),a.
 
 var mainpw="mymainpassword";
 var domain=window.location.href.split(/\//g)[2];
+domain.replace(/^www\./,"")
 var pwd=md5(mainpw+domain);
   var Inputs = document.getElementsByTagName("INPUT");
   for (var i=0,l=Inputs.length; i<l; i++) {
